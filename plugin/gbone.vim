@@ -9,7 +9,7 @@ endif
 
 noremap <silent><expr><Plug>(gbone-send-to-repl)    gbone#send_to_repl('last')
 noremap <silent><expr><Plug>(gbone-send-to-repl-h)  gbone#send_to_repl('left')
-noremap <silent><expr><Plug>(gbone-send-to-repl-j)  gbone#send_to_repl('down')
+noremap <silent><expr><Plug>(gbone-send-to-repl-j)  gbone#send_to_repl('bottom')
 noremap <silent><expr><Plug>(gbone-send-to-repl-k)  gbone#send_to_repl('top')
 noremap <silent><expr><Plug>(gbone-send-to-repl-l)  gbone#send_to_repl('right')
 

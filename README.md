@@ -1,8 +1,8 @@
-# vim-gbone.vim
+# vim-gbone
 
 Simple wrapper for [vim-tbone](https://github.com/tpope/vim-tbone).
 
-Provides mappings for sending the current line to a TMUX pane in any direction with smart indent level support. Automatically sends `Enter` key after each line. Remembers the last two panes used for each function until you restart vim.
+Provides mappings for sending the current line to a TMUX pane in any direction, with smart indent level support. Automatically sends the `Enter` key after each line. Remembers the last two panes used for each function, until you restart vim.
 
 I use it for the following:
 - Language agnostic REPL
@@ -39,6 +39,13 @@ if exists('$TMUX') && has_key(g:plugs, 'vim-tbone') && has_key(g:plugs, 'vim-gbo
   augroup END
 endif
 ```
+
+## TODO
+
+- 1 keymap for test current buffer, 1 keymap for send line to pane
+- capture input for direction if last pane doesn't exist
+- define test commands mapping for filetype, or auto determine if possible
+- `let g:gbone_ft_map = {'python': 'pytest -vv', 'javascript': 'yarn test'}`
 
 ## Credit
 
