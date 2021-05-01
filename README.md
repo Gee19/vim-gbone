@@ -19,14 +19,23 @@ Plug 'Gee19/vim-gbone'
 
 ## Usage
 
+Pretty ugly for now, I suck at vimscript.
+
 ```vim
 if exists('$TMUX') && has_key(g:plugs, 'vim-tbone') && has_key(g:plugs, 'vim-gbone')
   " Language agnostic REPL
-  nmap <silent> <leader>x <Plug>(gbone-send-to-repl)
+  nmap <silent> <leader>x  <Plug>(gbone-send-to-repl)
   nmap <silent> <leader>xh <Plug>(gbone-send-to-repl-h)
   nmap <silent> <leader>xj <Plug>(gbone-send-to-repl-j)
   nmap <silent> <leader>xk <Plug>(gbone-send-to-repl-k)
   nmap <silent> <leader>xl <Plug>(gbone-send-to-repl-l)
+
+  " Visual mode
+  xnoremap <silent> <leader>x  :<C-u>'<,'>call gbone#send_to_repl('last')<CR>
+  xnoremap <silent> <leader>xh :<C-u>'<,'>call gbone#send_to_repl('left')<CR>
+  xnoremap <silent> <leader>xj :<C-u>'<,'>call gbone#send_to_repl('bottom')<CR>
+  xnoremap <silent> <leader>xk :<C-u>'<,'>call gbone#send_to_repl('top')<CR>
+  xnoremap <silent> <leader>xl :<C-u>'<,'>call gbone#send_to_repl('right')<CR>
 
   " pytest runner for python files
   augroup long_live_tpope
