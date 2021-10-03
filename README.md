@@ -25,23 +25,16 @@ if exists('$TMUX') && has_key(g:plugs, 'vim-tbone') && has_key(g:plugs, 'vim-gbo
   " Creates 4 directional mappings as well (hjkl)
   let g:gbone_repl_mapping = '<silent> <leader>x'
 
-  " pytest runner for python files
-  augroup long_live_tpope
-    autocmd!
-    autocmd FileType python nmap <buffer> <leader>t :call gbone#send_to_pane('last', 'pytest -vv', 1)<CR>
-    autocmd FileType python nmap <buffer> <leader>th :call gbone#send_to_pane('left', 'pytest -vv', 1)<CR>
-    autocmd FileType python nmap <buffer> <leader>tj :call gbone#send_to_pane('bottom', 'pytest -vv', 1)<CR>
-    autocmd FileType python nmap <buffer> <leader>tk :call gbone#send_to_pane('top', 'pytest -vv', 1)<CR>
-    autocmd FileType python nmap <buffer> <leader>tl :call gbone#send_to_pane('right', 'pytest -vv', 1)<CR>
-  augroup END
+  " Run commands based on filetype (appends full buffer path)
+  let g:gbone_test_mapping = '<leader>t'
+  let g:gbone_ft_map = { 'python': 'pytest -vvv', 'javascript': 'yarn test', 'elixir': 'mix test' }
 endif
 ```
 
 ## TODO
-
+- fix visual mode mapping sending full lines
 - capture input for direction if last pane doesn't exist
-- define test commands mapping for filetype, or auto determine if possible
-- `let g:gbone_ft_map = {'python': 'pytest -vv', 'javascript': 'yarn test'}`
+- add support for running test based on line number (`mix test path/to/file:line`)
 
 ## Credit
 
