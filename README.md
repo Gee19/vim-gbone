@@ -19,23 +19,11 @@ Plug 'Gee19/vim-gbone'
 
 ## Usage
 
-Pretty ugly for now, I suck at vimscript.
-
 ```vim
 if exists('$TMUX') && has_key(g:plugs, 'vim-tbone') && has_key(g:plugs, 'vim-gbone')
   " Language agnostic REPL
-  nmap <silent> <leader>x  <Plug>(gbone-send-to-repl)
-  nmap <silent> <leader>xh <Plug>(gbone-send-to-repl-h)
-  nmap <silent> <leader>xj <Plug>(gbone-send-to-repl-j)
-  nmap <silent> <leader>xk <Plug>(gbone-send-to-repl-k)
-  nmap <silent> <leader>xl <Plug>(gbone-send-to-repl-l)
-
-  " Visual mode
-  xnoremap <silent> <leader>x  :<C-u>'<,'>call gbone#send_to_repl('last')<CR>
-  xnoremap <silent> <leader>xh :<C-u>'<,'>call gbone#send_to_repl('left')<CR>
-  xnoremap <silent> <leader>xj :<C-u>'<,'>call gbone#send_to_repl('bottom')<CR>
-  xnoremap <silent> <leader>xk :<C-u>'<,'>call gbone#send_to_repl('top')<CR>
-  xnoremap <silent> <leader>xl :<C-u>'<,'>call gbone#send_to_repl('right')<CR>
+  " Creates 4 directional mappings as well (hjkl)
+  let g:gbone_repl_mapping = '<silent> <leader>x'
 
   " pytest runner for python files
   augroup long_live_tpope
@@ -51,7 +39,6 @@ endif
 
 ## TODO
 
-- 1 keymap for test current buffer, 1 keymap for send line to pane
 - capture input for direction if last pane doesn't exist
 - define test commands mapping for filetype, or auto determine if possible
 - `let g:gbone_ft_map = {'python': 'pytest -vv', 'javascript': 'yarn test'}`
