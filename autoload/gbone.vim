@@ -1,7 +1,7 @@
 " vim-gbone - Simple wrapper for vim-tbone
 " https://github.com/gee19/vim-gbone
 " Author: Gee19 (https://github.com/Gee19)
-" Version: 0.2
+" Version: 0.3
 
 let s:last_known_repl_pane = ''
 let s:last_indent_level = -1
