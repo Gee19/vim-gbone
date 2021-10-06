@@ -6,7 +6,10 @@ Provides mappings for sending the current line to a TMUX pane in any direction, 
 
 I use it for the following:
 - Language agnostic REPL
-- Test runner (appends full buffer path)
+- Test runner
+  - appends full buffer path by default plus some magic for running specific tests based on your cursor location:
+    - current line number for elixir tests
+    - `className::func_name` for python tests
 
 ## Installation
 
@@ -15,6 +18,7 @@ I use it for the following:
 ```vim
 Plug 'tpope/vim-tbone'
 Plug 'Gee19/vim-gbone'
+Plug 'Gee19/current-func-info.vim'
 ```
 
 ## Usage
@@ -32,10 +36,13 @@ endif
 ```
 
 ## TODO
-- fix visual mode mapping sending full lines
-- capture input for direction if last pane doesn't exist
-- add support for running test based on line number (`mix test path/to/file:line`)
+- BUG: fix visual mode mapping sending full lines
+- ENHANCEMENT: capture input for direction if last pane doesn't exist
+- ENHANCEMENT (run specific tests):
+  - allow configuration of appending line numbers/class names/function names
+  - current-func-info should be optional
 
 ## Credit
 
 - [tpope](https://github.com/tpope) for [vim-tbone](https://github.com/tpope/vim-tbone).
+- [tyru](https://github.com/tyru) for [current-func-info](https://github.com/tyru/current-func-info.vim).
