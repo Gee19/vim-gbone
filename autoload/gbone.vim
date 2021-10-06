@@ -5,6 +5,8 @@
 
 let s:last_known_repl_pane = ''
 let s:last_indent_level = -1
+let s:supports_line_numbers = ['mix test']
+
 function! gbone#send_to_repl(pane) abort
   if (a:pane == 'last' && s:last_known_repl_pane == '')
     echo 'No last REPL pane, use a direction first (hjkl)'
@@ -53,6 +55,10 @@ function! gbone#send_to_pane(pane, cmd, clear) abort
     execute 'Tmux send-keys -t '''.l:pane.''' ''clear'''
     execute 'Tmux send-keys -t '''.l:pane.''' ''Enter'''
   endif
-  execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p')
+  if index(s:supports_line_numbers, a:cmd) >= 0
+    execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').':'.line('.')
+  else
+    execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p')
+  endif
   execute 'Tmux send-keys -t '''.l:pane.''' ''Enter'''
 endfunction
