@@ -5,6 +5,9 @@
 
 let s:last_known_repl_pane = ''
 let s:last_indent_level = -1
+let s:supports_line_numbers = ['mix test']
+let s:supports_class_func = ['pytest -vvv']
+
 function! gbone#send_to_repl(pane) abort
   if (a:pane == 'last' && s:last_known_repl_pane == '')
     echo 'No last REPL pane, use a direction first (hjkl)'
@@ -33,7 +36,7 @@ function! gbone#send_to_repl(pane) abort
 endfunction
 
 let s:last_known_test_pane = ''
-function! gbone#send_to_pane(pane, cmd, clear) abort
+function! gbone#send_to_pane(pane, cmd, clear, strategy) abort
   if (a:pane == 'last' && s:last_known_test_pane == '')
     echo 'No last test pane, use a direction first (hjkl)'
     return
@@ -53,6 +56,23 @@ function! gbone#send_to_pane(pane, cmd, clear) abort
     execute 'Tmux send-keys -t '''.l:pane.''' ''clear'''
     execute 'Tmux send-keys -t '''.l:pane.''' ''Enter'''
   endif
-  execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p')
+
+  if (strategy == 'line')
+    execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').':'.line('.')
+  elseif (strategy == 'smart') && &runtimepath =~ 'cfi.vim'
+    let s:class_func = substitute(cfi#format("%s", ""), "\\.", "::", "")
+    execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').'::'.s:class_func
+  else
+    execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p')
+  endif
+  " if index(s:supports_line_numbers, a:cmd) >= 0
+  "   execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').':'.line('.')
+  " elseif index(s:supports_class_func, a:cmd) >= 0
+  "   let s:class_func = substitute(cfi#format("%s", ""), "\\.", "::", "")
+  "   execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').'::'.s:class_func
+  " else
+  "   execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p')
+  " endif
+
   execute 'Tmux send-keys -t '''.l:pane.''' ''Enter'''
 endfunction
