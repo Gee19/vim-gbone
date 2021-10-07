@@ -24,10 +24,17 @@ if exists('g:gbone_ft_map') && exists('g:gbone_test_mapping')
   execute 'augroup long_live_tpope'
   execute 'autocmd!'
   for [ft, cmd] in items(g:gbone_ft_map)
-    execute 'autocmd FileType ' . ft . ' nmap <buffer> ' . g:gbone_test_mapping . ' :call gbone#send_to_pane(''last'', ' . s:quote_char . cmd . s:quote_char . ', 1)<CR>'
+    let s:ft_strategy = ''
+    if has_key(g:gbone_ft_strategy, ft)
+      let s:ft_strategy = g:gbone_ft_strategy[ft]
+    endif
+
+    execute 'autocmd FileType ' . ft . ' nmap <buffer> ' . g:gbone_test_mapping . ' :call gbone#send_to_pane(''last'', ' . s:quote_char . cmd . s:quote_char . ', 1, ' . s:quote_char . s:ft_strategy . s:quote_char . ')<CR>'
+
     for [key, val] in items({'h':'left', 'j':'bottom', 'k':'top', 'l':'right'})
-      execute 'autocmd FileType ' . ft . ' nmap <buffer> ' . g:gbone_test_mapping . key . ' :call gbone#send_to_pane(' . s:quote_char . val . s:quote_char . ', ' . s:quote_char . cmd . s:quote_char . ', 1)<CR>'
+      execute 'autocmd FileType ' . ft . ' nmap <buffer> ' . g:gbone_test_mapping . key . ' :call gbone#send_to_pane(' . s:quote_char . val . s:quote_char . ', ' . s:quote_char . cmd . s:quote_char . ', 1, ' . s:quote_char . s:ft_strategy . s:quote_char . ')<CR>'
     endfor
+
   endfor
   execute 'augroup END'
 endif
