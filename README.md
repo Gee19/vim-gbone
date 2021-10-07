@@ -16,27 +16,23 @@ Plug 'Gee19/vim-gbone'
 Plug 'tyru/current-func-info.vim' " Optional
 ```
 
-# REPL Usage
+### REPL Usage
 - Sends the current line (or visually selected lines) to a tmux pane in *any direction*, with *smart indent level support*.
 - Automatically sends the `Enter` key after each line.
 
-# Test Runner Usage
+### Test Runner Usage
 - Sends your pre-defined test command to a tmux pane in *any direction*.
 - Appends the full buffer path.
 - Optionally, appends the current line number, class or class & function.
-
-Note:
-*Remembers the last two panes used for each function, until you restart vim.*
-
 
 |    Strategy | Description                                                    | Example                                        |
 | :---------- | :--------------------------------------------------------------| :--------------------------------------------- |
 | **smart**   | Test specific func, class or file depending on cursor location | `pytest /path/to/file{::className}{::funcName}`|
 | **line**    | Append line number to test command                             | `mix test /path/to/file.exs:12`                |
-|                                                                                                                               |
 
 Note:
-- `smart` strategy requires `current-func-info.vim`.
+- *Remembers the last two panes used for each function, until you restart vim.*
+- `smart` strategy *requires* `current-func-info.vim`.
 - Supports [`C, Go, Perl, PHP, Python, Ruby, VimL, PL/SQL, sh, Bash, Zsh, Elixir`]
 
 ## Configuration
@@ -61,6 +57,7 @@ Note:
 ## TODO
 - BUG: fix visual mode mapping sending full lines
 - ENHANCEMENT: capture input for direction if last pane doesn't exist
+- BUG: sends trailing `::` if no function/class is nearby in file with `smart` strategy, should only send file path
 
 ## Credit
 
