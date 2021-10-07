@@ -57,9 +57,9 @@ function! gbone#send_to_pane(pane, cmd, clear, strategy) abort
     execute 'Tmux send-keys -t '''.l:pane.''' ''Enter'''
   endif
 
-  if (strategy == 'line')
+  if (a:strategy == 'line')
     execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').':'.line('.')
-  elseif (strategy == 'smart') && &runtimepath =~ 'cfi.vim'
+  elseif (a:strategy == 'smart') && &runtimepath =~ 'current-func-info.vim'
     let s:class_func = substitute(cfi#format("%s", ""), "\\.", "::", "")
     execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').'::'.s:class_func
   else
