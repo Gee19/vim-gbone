@@ -33,7 +33,7 @@ Plug 'tyru/current-func-info.vim' " Optional
 Note:
 - *Remembers the last two panes used for each function, until you restart vim.*
 - `smart` strategy *requires* `current-func-info.vim`.
-- Supports [`C, Go, Perl, PHP, Python, Ruby, VimL, PL/SQL, sh, Bash, Zsh, Elixir`]
+- Supports: `C, Go, Perl, PHP, Python, Ruby, VimL, PL/SQL, sh, Bash, Zsh, Elixir`
 
 ## Configuration
 
@@ -55,9 +55,8 @@ Note:
 ```
 
 ## TODO
-- BUG: fix visual mode mapping sending full lines
+- BUG: fix visual mode mapping sending full lines?
 - ENHANCEMENT: capture input for direction if last pane doesn't exist
-- BUG: sends trailing `::` if no function/class is nearby in file with `smart` strategy, should only send file path
 
 ## Credit
 

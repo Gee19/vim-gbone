@@ -60,19 +60,15 @@ function! gbone#send_to_pane(pane, cmd, clear, strategy) abort
   if (a:strategy == 'line')
     execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').':'.line('.')
   elseif (a:strategy == 'smart') && &runtimepath =~ 'current-func-info.vim'
-    let s:class_func = substitute(cfi#format("%s", ""), "\\.", "::", "")
-    execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').'::'.s:class_func
+    let s:class_func = substitute(cfi#format('%s', ''), "\\.", "::", "")
+    if (s:class_func == '')
+      execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p')
+    else
+      execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').'::'.s:class_func
+    endif
   else
     execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p')
   endif
-  " if index(s:supports_line_numbers, a:cmd) >= 0
-  "   execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').':'.line('.')
-  " elseif index(s:supports_class_func, a:cmd) >= 0
-  "   let s:class_func = substitute(cfi#format("%s", ""), "\\.", "::", "")
-  "   execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p').'::'.s:class_func
-  " else
-  "   execute 'Tmux send-keys -t '''.l:pane.''' '''.a:cmd.' '' '.expand('%:p')
-  " endif
 
   execute 'Tmux send-keys -t '''.l:pane.''' ''Enter'''
 endfunction
