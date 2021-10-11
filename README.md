@@ -57,6 +57,7 @@ Note:
 ## TODO
 - BUG: fix visual mode mapping sending full lines?
 - ENHANCEMENT: capture input for direction if last pane doesn't exist
+- localleader might be the move
 
 ## Credit
 
