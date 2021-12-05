@@ -16,6 +16,10 @@ Plug 'Gee19/vim-gbone'
 Plug 'tyru/current-func-info.vim' " Optional
 ```
 
+### Run Usage
+- Send pre-defined run command to a tmux pane in *any direction*
+- Appends full buffer path
+
 ### REPL Usage
 - Sends the current line (or visually selected lines) to a tmux pane in *any direction*, with *smart indent level support*.
 - Automatically sends the `Enter` key after each line.
@@ -38,7 +42,13 @@ Note:
 ## Configuration
 
 ```vim
-  let g:gbone_repl_mapping = '<leader>x'
+  let g:gbone_run_mapping = '<leader>x'
+  let g:gbone_run_ft_map = {
+  \ 'python': 'python3.8',
+  \ 'javascript': 'node',
+  \ }
+
+  let g:gbone_repl_mapping = '<leader>rl'
   let g:gbone_test_mapping = '<leader>t'
 
   let g:gbone_ft_map = {
