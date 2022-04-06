@@ -9,19 +9,20 @@ endif
 
 let s:quote_char = ''''
 let s:visual_selection_thingy = ' :<C-u>' . s:quote_char . '<,' . s:quote_char . '>'
+let s:direction_map = {'h':'left', 'j':'bottom', 'k':'top', 'l':'right'}
 
 if exists('g:gbone_repl_mapping')
   execute 'nmap ' . g:gbone_repl_mapping . ' :call gbone#send_to_repl(''last'')<CR>'
   execute 'xnoremap ' . g:gbone_repl_mapping . s:visual_selection_thingy . 'call gbone#send_to_repl(''last'')<CR>'
 
-  for [key, val] in items({'h':'left', 'j':'bottom', 'k':'top', 'l':'right'})
+  for [key, val] in items(s:direction_map)
     execute 'nmap ' . g:gbone_repl_mapping . key . ' :call gbone#send_to_repl(' . s:quote_char . val . s:quote_char . ')<CR>'
     execute 'xnoremap ' . g:gbone_repl_mapping . key . s:visual_selection_thingy . 'call gbone#send_to_repl(' . s:quote_char . val . s:quote_char . ')<CR>'
   endfor
 endif
 
 if exists('g:gbone_ft_map') && exists('g:gbone_test_mapping')
-  execute 'augroup long_live_tpope'
+  execute 'augroup gbone_test_mapping'
   execute 'autocmd!'
   for [ft, cmd] in items(g:gbone_ft_map)
     let s:ft_strategy = ''
@@ -31,7 +32,7 @@ if exists('g:gbone_ft_map') && exists('g:gbone_test_mapping')
 
     execute 'autocmd FileType ' . ft . ' nmap <buffer> ' . g:gbone_test_mapping . ' :call gbone#send_to_pane(''last'', ' . s:quote_char . cmd . s:quote_char . ', 1, ' . s:quote_char . s:ft_strategy . s:quote_char . ')<CR>'
 
-    for [key, val] in items({'h':'left', 'j':'bottom', 'k':'top', 'l':'right'})
+    for [key, val] in items(s:direction_map)
       execute 'autocmd FileType ' . ft . ' nmap <buffer> ' . g:gbone_test_mapping . key . ' :call gbone#send_to_pane(' . s:quote_char . val . s:quote_char . ', ' . s:quote_char . cmd . s:quote_char . ', 1, ' . s:quote_char . s:ft_strategy . s:quote_char . ')<CR>'
     endfor
 
@@ -40,7 +41,7 @@ if exists('g:gbone_ft_map') && exists('g:gbone_test_mapping')
 endif
 
 if exists('g:gbone_run_ft_map') && exists('g:gbone_run_mapping')
-  execute 'augroup long_live_tpope'
+  execute 'augroup gbone_run_mapping'
   execute 'autocmd!'
   for [ft, cmd] in items(g:gbone_run_ft_map)
     let s:ft_strategy = ''
